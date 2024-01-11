@@ -2,7 +2,7 @@ package com.love2code.banking.controller;
 
 import com.love2code.banking.dto.BankResponse;
 import com.love2code.banking.dto.UserRequest;
-import com.love2code.banking.service.impl.UserService;
+import com.love2code.banking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
