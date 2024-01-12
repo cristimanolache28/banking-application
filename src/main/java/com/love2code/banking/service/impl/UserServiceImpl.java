@@ -1,9 +1,6 @@
 package com.love2code.banking.service.impl;
 
-import com.love2code.banking.dto.AccountInfo;
-import com.love2code.banking.dto.BankResponse;
-import com.love2code.banking.dto.EmailDetails;
-import com.love2code.banking.dto.UserRequest;
+import com.love2code.banking.dto.*;
 import com.love2code.banking.entity.User;
 import com.love2code.banking.repository.UserRepository;
 import com.love2code.banking.service.EmailService;
@@ -41,6 +38,40 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return checkEmailAddress(userRequest, newUser);
+    }
+
+    @Override
+    public BankResponse balanceEnquiry(EnquiryRequest request) {
+        // check if the provided account number exists in the db
+        boolean isAccountExist = userRepository.existsByAccountNumber(request.getAccountNumber());
+        if (!isAccountExist) {
+            return BankResponse.builder()
+                    .responseCode(AccountUtils.ACCOUNT_NOT_EXIST_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_NOT_EXIST_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+        User foundUser = userRepository.findByAccountNumber(request.getAccountNumber());
+
+        return BankResponse.builder()
+                .responseCode(AccountUtils.ACCOUNT_FOUND_CODE)
+                .responseMessage(AccountUtils.ACCOUNT_FOUND_SUCCESS)
+                .accountInfo(AccountInfo.builder()
+                        .accountBalance(foundUser.getAccountBalance())
+                        .accountNumber(request.getAccountNumber())
+                        .accountName(foundUser.getFirstName() + " " + foundUser.getLastName() + " " + foundUser.getOtherName())
+                        .build())
+                .build();
+    }
+
+    @Override
+    public String nameEnquiry(EnquiryRequest request) {
+        boolean isAccountExist = userRepository.existsByAccountNumber(request.getAccountNumber());
+        if (!isAccountExist) {
+            return AccountUtils.ACCOUNT_NOT_EXIST_MESSAGE;
+        }
+        User foundUser = userRepository.findByAccountNumber(request.getAccountNumber());
+        return foundUser.getFirstName() + " " + foundUser.getLastName() + " " + foundUser.getOtherName();
     }
 
     public BankResponse checkEmailAddress(UserRequest userRequest, User newUser) {
