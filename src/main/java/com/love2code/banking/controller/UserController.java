@@ -1,6 +1,7 @@
 package com.love2code.banking.controller;
 
 import com.love2code.banking.dto.BankResponse;
+import com.love2code.banking.dto.CreditDebitRequest;
 import com.love2code.banking.dto.EnquiryRequest;
 import com.love2code.banking.dto.UserRequest;
 import com.love2code.banking.service.UserService;
@@ -27,6 +28,11 @@ public class UserController {
     @GetMapping("/nameEnquiry")
     public String nameEnquiry(@RequestBody EnquiryRequest request) {
         return userService.nameEnquiry(request);
+    }
+
+    @PostMapping("/credit")
+    public BankResponse creditAccount(@RequestBody CreditDebitRequest request) {
+        return userService.creditAccount(request);
     }
 
 
