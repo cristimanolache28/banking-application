@@ -8,6 +8,8 @@ import com.love2code.banking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -33,6 +35,11 @@ public class UserController {
     @PostMapping("/credit")
     public BankResponse creditAccount(@RequestBody CreditDebitRequest request) {
         return userService.creditAccount(request);
+    }
+
+    @PostMapping("/debit")
+    public BankResponse debitAccount(@RequestBody CreditDebitRequest request) {
+        return userService.debitAccount(request);
     }
 
 

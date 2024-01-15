@@ -13,6 +13,10 @@ public class AccountUtils {
     public static final String ACCOUNT_FOUND_SUCCESS = "User Account Found";
     public static final String ACCOUNT_CREDITED_SUCCESS = "005";
     public static final String ACCOUNT_CREDITED_SUCCESS_MESSAGE = "User Account was credited successfully";
+    public static final String INSUFFICIENT_BALANCE_CODE = "006";
+    public static final String INSUFFICIENT_BALANCE_MESSAGE = "Insufficient Balance";
+    public static final String ACCOUNT_DEBITED_SUCCESS = "007";
+    public static final String ACCOUNT_DEBITED_MESSAGE = "Account has been successfully debited";
 
     public static String generateAccountNumber() {
         Year currentYear = Year.now();
