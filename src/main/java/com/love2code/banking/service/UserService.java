@@ -1,9 +1,6 @@
 package com.love2code.banking.service;
 
-import com.love2code.banking.dto.BankResponse;
-import com.love2code.banking.dto.CreditDebitRequest;
-import com.love2code.banking.dto.EnquiryRequest;
-import com.love2code.banking.dto.UserRequest;
+import com.love2code.banking.dto.*;
 
 public interface UserService {
     BankResponse createAccount(UserRequest userRequest);
@@ -12,4 +9,5 @@ public interface UserService {
     String nameEnquiry(EnquiryRequest enquiryRequest);
     BankResponse creditAccount(CreditDebitRequest request);
     BankResponse debitAccount(CreditDebitRequest request);
+    BankResponse transfer(TransferRequest request);
 }

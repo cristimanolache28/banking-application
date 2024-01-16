@@ -1,10 +1,9 @@
 package com.love2code.banking.controller;
 
-import com.love2code.banking.dto.BankResponse;
-import com.love2code.banking.dto.CreditDebitRequest;
-import com.love2code.banking.dto.EnquiryRequest;
-import com.love2code.banking.dto.UserRequest;
+import com.love2code.banking.dto.*;
 import com.love2code.banking.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,14 @@ public class UserController {
         return userService.createAccount(userRequest);
     }
 
+    @Operation(
+            summary = "Balance Enquiry",
+            description = "Given an account number, check how much the user has"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping("/balanceEnquiry")
     public BankResponse balanceEnquiry(@RequestBody EnquiryRequest request) {
         return userService.balanceEnquiry(request);
@@ -40,6 +47,11 @@ public class UserController {
     @PostMapping("/debit")
     public BankResponse debitAccount(@RequestBody CreditDebitRequest request) {
         return userService.debitAccount(request);
+    }
+
+    @PostMapping("/transfer")
+    public BankResponse transfer(@RequestBody TransferRequest request) {
+        return userService.transfer(request);
     }
 
 
