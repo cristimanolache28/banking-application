@@ -179,13 +179,13 @@ public class UserServiceImpl implements UserService {
                 .accountNumber(sourceAccountUser.getAccountNumber())
                 .transactionType("DEBIT")
                 .amount(request.getAmount())
-                .amount(request.getAmount())
                 .build();
         transactionService.saveTransaction(transactionDebitDto);
 
         User destinationAccountUser = userRepository.findByAccountNumber(request.getDestinationAccountNumber());
         destinationAccountUser.setAccountBalance(destinationAccountUser.getAccountBalance().add(request.getAmount()));
         userRepository.save(destinationAccountUser);
+
         EmailDetails creditAlert = EmailDetails.builder()
                 .subject("CREDIT ALERT")
                 .recipient(destinationAccountUser.getEmail())
